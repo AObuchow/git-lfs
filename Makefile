@@ -202,11 +202,12 @@ endif
 #
 # It uses BUILD_MAIN as defined above to specify the entrypoint for building Git
 # LFS.
-BUILD = GOOS=$(1) GOARCH=$(2) \
+BUILD = GOOS=$(1) GOARCH=$(2) CGO_ENABLED=1 GO111MODULE=on GOEXPERIMENT=strictfipsruntime  \
 	$(GO) build \
 	-ldflags="$(LD_FLAGS)" \
 	-gcflags="$(GC_FLAGS)" \
 	-trimpath \
+	-tags strictfipsruntime \
 	-o ./bin/git-lfs$(3) $(BUILD_MAIN)
 
 # BUILD_TARGETS is the set of all platforms and architectures that Git LFS is
